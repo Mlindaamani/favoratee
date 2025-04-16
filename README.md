@@ -111,7 +111,7 @@ Contributions are welcome! If you have suggestions for improvements or want to r
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-
+---
 
 Thank you for using favoratee! We hope you enjoy finding and sharing books with this application. If you have any questions or need further assistance, feel free to reach out. Happy reading!
-
+```
