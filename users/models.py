@@ -9,6 +9,7 @@ class Profile(models.Model):
         FIMALE = 'F', 'Fimale'
         OTHERS = 'O', 'Others'
 
+
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='profile')
     image = models.ImageField(default='default.png', upload_to='profiles')

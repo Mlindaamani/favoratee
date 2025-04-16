@@ -1,7 +1,5 @@
 from ast import arg
 from audioop import reverse
-from socket import inet_ntoa
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -14,17 +12,37 @@ from airdrop.settings import EMAIL_HOST_USER, MESSAGE_EMAIL
 
 
 def book_list(request: HttpRequest, category_slug=None, author=None):
-    category = None
+    # Fetch all authors and categories for filtering options
     authors = Author.objects.all()
     categories = Category.objects.all()
+
+    # Initialize the queryset for books
     books = Book.objects.filter(available=True)
+
+    # Filter by category if category_slug is provided
+    category = None
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         books = books.filter(category=category)
-    elif author:
+
+    # Filter by author if author is provided
+    author = None
+    if author:
         author = get_object_or_404(Author, slug=author)
         books = books.filter(authors=author)
-    return render(request, 'bot/book-list.html', context={'books': books, 'category': category, 'categories': categories, 'authors': authors})
+
+    # Render the book list template with the filtered data
+    return render(
+        request,
+        'bot/book-list.html',
+        context={
+            'books': books,
+            'category': category,
+            'categories': categories,
+            'author': author,
+            'authors': authors
+        }
+    )
 
 
 def book_detail(request: HttpRequest, id):
